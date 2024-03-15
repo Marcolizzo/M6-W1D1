@@ -1,0 +1,26 @@
+GET http://localhost:3030/authors
+
+####
+POST http://localhost:3030/createAuthor
+Content-Type: application/json
+
+{
+    "firstName": "Luca",
+    "lastName": "Santoro",
+    "email": "lucasantoro@gmail.com",
+    "birthday": "08.01.2001",
+    "avatar": "?"
+}
+
+####
+
+PATCH  http://localhost:3030/updateAuthor/65f2060c9fa2f9ecc82fcb80
+Content-Type: application/json
+
+{
+    "lastName": "Santoro"
+}
+
+####
+
+DELETE http://localhost:3030/deleteAuthor/65f48e3eb5be3837e24b6caa
