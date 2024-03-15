@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors')
 require('dotenv').config();
 
 const PORT = 3030;
@@ -10,6 +11,7 @@ const app = express();
 const authorsRoute = require('./routes/authors');
 
 //middleware
+app.use(cors())
 app.use(express.json());
 
 app.use('/', authorsRoute);
