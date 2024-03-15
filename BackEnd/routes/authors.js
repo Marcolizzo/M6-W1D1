@@ -18,6 +18,31 @@ router.get('/authors', async (request, response) => {
     }
 })
 
+router.get('/authors/:id', async (request, response) => {
+    const id = request.params;
+
+    try {
+        const author = await AuthorsModel.findById(id);
+
+        if (!author) {
+            return response
+                .status(404)
+                .send({
+                    statusCode: 404,
+                    message: 'The requested author does not exist!'
+                })
+        }
+    } catch (e) {
+        response
+            .status(500)
+            .send({
+                statusCode: 500,
+                message: 'Internal server error'
+            })
+    }
+})
+
+
 router.post('/createAuthor', async (request, response) => {
     const newAuthor = new AuthorsModel({
         firstName: request.body.firstName,
@@ -92,7 +117,7 @@ router.delete('/deleteAuthor/:id', async (request, response) => {
 
         response
             .status(200)
-            .send(`User wiht id ${id} successfully removed`)
+            .send(`User with id ${id} successfully removed`)
     } catch (e) {
         response
             .status(500)

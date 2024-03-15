@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors')
+const cors = require('cors');
 require('dotenv').config();
 
 const PORT = 3030;
@@ -9,12 +9,13 @@ const app = express();
 
 //import delle routes
 const authorsRoute = require('./routes/authors');
+const blogPostsRoute = require('./routes/blogPosts');
 
 //middleware
 app.use(cors())
 app.use(express.json());
-
 app.use('/', authorsRoute);
+app.use('/', blogPostsRoute);
 
 //connessione del database
 mongoose.connect(process.env.MONGODB_URL, {

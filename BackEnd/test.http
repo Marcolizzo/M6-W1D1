@@ -1,9 +1,10 @@
-GET http://localhost:3030/authors
 
+//AUTHORS
+GET http://localhost:3030/authors
 ####
+
 POST http://localhost:3030/createAuthor
 Content-Type: application/json
-
 {
     "firstName": "Luca",
     "lastName": "Santoro",
@@ -11,16 +12,51 @@ Content-Type: application/json
     "birthday": "08.01.2001",
     "avatar": "?"
 }
-
 ####
 
 PATCH  http://localhost:3030/updateAuthor/65f2060c9fa2f9ecc82fcb80
 Content-Type: application/json
-
 {
     "lastName": "Santoro"
 }
-
 ####
 
 DELETE http://localhost:3030/deleteAuthor/65f48e3eb5be3837e24b6caa
+####
+
+//BLOGPOSTS
+GET http://localhost:3030/blogPosts
+####
+
+POST http://localhost:3030/createBlogPost
+Content-Type: application/json
+
+{
+    "category": "Categoria4",
+    "title": "Titolo4",
+    "cover": "URL dell'immagine4",
+    "readTime": {
+        "value": 10,
+        "unit": "minuti"
+    },
+    "author": {
+        "name": "Nome Autore4",
+    "avatar": "URL dell'avatar4"
+    },
+    "content": "Contenuto del post4"
+}
+####
+
+PATCH http://localhost:3030/updateBlogPost/65f4c6583f2b5b40d7baff3e
+Content-Type: application/json
+
+{
+    "category": "nuova categoria",
+    "title": "Nuovo titolo",
+    "cover": "nuova cover",
+    "content": "nuovo content"
+}
+####
+
+DELETE http://localhost:3030/deleteBlogPost/65f4c94b067037710bcba0a6
+####
