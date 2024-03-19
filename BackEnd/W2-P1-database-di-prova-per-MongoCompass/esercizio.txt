@@ -1,0 +1,8 @@
+- {isActive :true} -----------------------> 51 elementi
+- {age: {$gt: 26}} -----------------------> 54 elementi
+- {age: {$gt: 26, $lte: 30}} -------------> 19 elementi
+- {eyeColor: {$in: ["brown", "blue"]}} ---> 66 elementi
+- {eyeColor: {$ne: "green"}} -------------> 66 elementi
+- {eyeColor: {$nin: ["green", "blue"]}} --> 35 elementi
+- Filter = {company: "FITCORE"} ---------->  1 elemento
+- Project = {_id: 0, email: 1} -----------> email: "victoria.solis@fitcore.biz"
