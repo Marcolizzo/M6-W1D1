@@ -1,6 +1,68 @@
 const express = require('express');
 const router = express.Router();
 const AuthorsModel = require('../models/authors');
+const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
+const {CloudinaryStorage} = require('multer-storage-cloudinary');
+require('dotenv').config();
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+})
+
+// INTERNAL STORAGE
+// const internalStorage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, 'uploads')
+//     },
+//     filename: (req, file, cb) => {
+//         const fileExtension = file.originalname.split('.')
+//         cb(null, `${file.fieldname}+${new Date().toISOString()}.${fileExtension}`)
+//     }
+// })
+
+// const upload = multer({storage: internalStorage})
+
+// router.post('/authors/:id/avatar', upload.single('uploadAvatar'), async (req, res) => {
+//     const url = req.protocol + '://' + req.get('host');
+//     try {
+//         const imageUrl = req.file.filename
+//         res.status(200).json({img: `${url}/uploads${imageUrl}`})
+//     } catch (e) {
+//         res.status(500)
+//             .send({
+//                 statusCode: 500,
+//                 message: 'Internal server error'
+//             })
+//     }
+// })
+
+// CLOUD STORAGE
+const cloudStorage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'Avatars',
+        format: async (req, file) => 'png',
+        publich_id: (req, file) => file.name
+    }
+})
+
+const cloudUpload = multer({storage: cloudStorage});
+
+router.post('/authors/:id/avatar', cloudUpload.single('uploadAvatar'), async (req, res) => {
+    const url = req.protocol + '://' + req.get('host');
+    try {
+        res.status(200).json({source: req.file.path})
+    } catch (e) {
+        res.status(500)
+            .send({
+                statusCode: 500,
+                message: 'Internal server error'
+            })
+    }
+})
 
 router.get('/authors', async (request, response) => {
     try {
