@@ -1,0 +1,32 @@
+GET http://localhost:3030/authors
+
+####
+
+POST http://localhost:3030/authors
+Content-Type: application/json
+
+{
+    "name": "",
+    "surname": "",
+    "email": "",
+    "birthday": "",
+    "avatar": ""
+}
+
+####
+
+GET http://localhost:3030/authors/65f4c6583f2b5b40d7baff3e
+
+####
+
+PATCH http://localhost:3030/authors/65f4c6583f2b5b40d7baff3e
+Content-Type: application/json
+
+{
+    "avatar": "Hixyllian"
+}
+
+
+####
+
+DELETE http://localhost:3030/authors/65f4c94b067037710bcba0a6
